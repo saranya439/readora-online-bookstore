@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readora | Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=2000');
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .glass-nav { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); }
+        .book-card { transition: transform 0.3s ease; height: 100%; display: flex; flex-direction: column; }
+        .book-card:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body class="font-sans">
+
+    <div id="auth-container" class="min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md">
+            <h2 id="auth-title" class="text-3xl font-bold text-center text-indigo-700 mb-6">Readora Login</h2>
+            <form id="auth-form" class="space-y-4">
+                <input type="text" id="username" placeholder="Full Name" class="hidden w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-indigo-500">
+                <input type="email" id="email" placeholder="Email" class="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-indigo-500" required>
+                <input type="password" id="password" placeholder="Password" class="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-indigo-500" required>
+                <button type="submit" id="submit-btn" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700">Login</button>
+            </form>
+            <p class="text-sm text-center mt-4 text-gray-600">
+                <span id="toggle-text">Don't have an account?</span> 
+                <button onclick="toggleAuthMode()" id="toggle-btn" class="text-indigo-600 font-bold ml-1">Sign Up</button>
+            </p>
+        </div>
+    </div>
+
+    <div id="dashboard" class="hidden min-h-screen bg-gray-50/95">
+        <nav class="glass-nav shadow-sm p-4 sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+                <h1 class="text-2xl font-black text-indigo-700 tracking-tighter cursor-pointer">READORA</h1>
+                
+                <div class="relative w-full max-w-sm">
+                    <input type="text" id="searchInput" placeholder="Search by title or author..." 
+                           class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+                    <span class="absolute left-3 top-2 text-gray-400">🔍</span>
+                </div>
+
+                <div class="flex items-center gap-6 text-sm font-bold text-gray-600">
+                    <a href="#" class="hover:text-indigo-600">Home</a>
+                    <a href="javascript:void(0)" onclick="toggleCart()" class="hover:text-indigo-600 flex items-center gap-1">
+                        Cart <span id="cart-count" class="bg-indigo-600 text-white px-2 py-0.5 rounded-full text-xs">0</span>
+                    </a>
+                    <a href="#" class="hover:text-indigo-600">Account</a>
+                    <button onclick="logout()" class="text-red-500 hover:text-red-700 font-bold">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="max-w-7xl mx-auto p-6">
+            <div id="book-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+        </main>
+    </div>
+
+    <div id="cart-modal" class="hidden fixed inset-0 bg-black/50 z-[100] flex justify-end">
+        <div class="bg-white w-full max-w-md h-full shadow-2xl p-6 flex flex-col">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h2 class="text-2xl font-bold text-gray-800">Your Cart</h2>
+                <button onclick="toggleCart()" class="text-gray-500 text-2xl">&times;</button>
+            </div>
+            
+            <div id="cart-items-list" class="flex-grow overflow-y-auto space-y-4">
+                </div>
+
+            <div class="border-t pt-4 mt-4">
+                <div class="flex justify-between text-lg font-bold mb-4">
+                    <span>Total Amount:</span>
+                    <span id="cart-total-price" class="text-indigo-600">$0.00</span>
+                </div>
+                <button class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold hover:bg-indigo-700 transition">
+                    Checkout Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+</body>
+</html>
